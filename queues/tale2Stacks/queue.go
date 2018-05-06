@@ -1,16 +1,13 @@
 package main
 
-
-// implements queue
-type queue struct {
-	newestOnTop *stack
-	oldestOnTop *stack
-}
+import (
+	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/stackNaive"
+)
 
 func newQueue() *queue {
 	return &queue{
-		newestOnTop: NewStack(),
-		oldestOnTop: NewStack(),
+		newestOnTop: stackNaive.New(),
+		oldestOnTop: stackNaive.New(),
 	}
 }
 

@@ -1,30 +1,31 @@
 package main
 
 import (
-	"testing"
-	"os"
+	"io/ioutil"
 	"log"
+	"os"
 	"path/filepath"
 	"strings"
-	"io/ioutil"
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 )
 
 type testCase struct {
-	file            string
+	file string
 }
 
 func TestQueue(t *testing.T) {
-	testCase:= getTestCases()
+	testCase := getTestCases()
 
 	for _, tc := range testCase {
 		t.Run(tc.file, func(t *testing.T) {
-			f, err := os.Open(tc.file)
+
+			queries, err := getTestInputQueries(tc.file)
 			if err != nil {
-				t.Fatalf("Could not open test data file %s: %v", tc.file, err)
+				t.Fatalf("Could not open test data file for input file %s: %v", tc.file, err)
 			}
 
-			queries := parseInput(f)
 			queue := newQueue()
 
 			output := doQuerySequence(queue, queries)
@@ -37,6 +38,41 @@ func TestQueue(t *testing.T) {
 			assert.Equal(t, expected, output)
 		})
 	}
+}
+
+func BenchmarkQueue(b *testing.B) {
+	testCase := getTestCases()
+
+	for _, tc := range testCase {
+
+		b.Run(tc.file, func(b *testing.B) {
+
+			queries, err := getTestInputQueries(tc.file)
+			if err != nil {
+				b.Fatalf("Could not open test data file for input file %s: %v", tc.file, err)
+			}
+
+			for i := 0; i < b.N; i++ {
+				queue := newQueue()
+
+				_ = doQuerySequence(queue, queries)
+			}
+
+		})
+	}
+}
+
+func getTestInputQueries(filename string) ([]queryDoer, error) {
+	f, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+
+	queries := parseInput(f)
+
+	f.Close()
+
+	return queries, nil
 }
 
 func getTestCases() []testCase {
@@ -68,7 +104,6 @@ func getTestCases() []testCase {
 
 	return testCases
 }
-
 
 // hack together output file's path based on the input file path
 func constructOutputFilename(in string) string {

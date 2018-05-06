@@ -18,6 +18,18 @@ func main() {
 
 }
 
+type stack interface {
+	Len() int
+	Push(int)
+	Pop() int
+	Peek() int
+}
+
+type queue struct {
+	newestOnTop stack
+	oldestOnTop stack
+}
+
 type queryDoer interface {
 	prettyPrint()
 	doQuery(*queue) string

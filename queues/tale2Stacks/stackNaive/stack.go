@@ -1,8 +1,9 @@
-package main
+package stackNaive
 
+// implements stack
 type stack []int
 
-func NewStack() *stack {
+func New() *stack {
 	s := make(stack, 0)
 	return &s
 }
@@ -24,7 +25,6 @@ func (s *stack) Pop() int {
 	*s = (*s)[:len(*s)-1]
 	return v
 }
-
 
 func (s *stack) Peek() int {
 	if len(*s) == 0 {
