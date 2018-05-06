@@ -12,8 +12,9 @@ func (e enqueueQuery) prettyPrint() {
 	fmt.Printf("ENQUEUE %d\n", e.val)
 }
 
-func (e enqueueQuery) doQuery(q *queue) {
+func (e enqueueQuery) doQuery(q *queue) string {
 	q.Enqueue(e.val)
+	return ""
 }
 
 // type 2
@@ -24,8 +25,9 @@ func (d dequeueQuery) prettyPrint() {
 	fmt.Println("DEQUEUE HEAD")
 }
 
-func (d dequeueQuery) doQuery(q *queue) {
+func (d dequeueQuery) doQuery(q *queue) string {
 	_ = q.Dequeue()
+	return ""
 }
 
 // type 3
@@ -36,7 +38,7 @@ func (p peekQuery) prettyPrint() {
 	fmt.Println("PRINT HEAD")
 }
 
-func (p peekQuery) doQuery(q *queue) {
+func (p peekQuery) doQuery(q *queue) string {
 	v := q.Peek()
-	fmt.Printf("%d\n", v)
+	return fmt.Sprintf("%d\n", v)
 }

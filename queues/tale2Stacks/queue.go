@@ -1,19 +1,16 @@
 package main
 
-import (
-	"github.com/golang-collections/collections/stack"
-)
 
 // implements queue
 type queue struct {
-	newestOnTop *stack.Stack
-	oldestOnTop *stack.Stack
+	newestOnTop *stack
+	oldestOnTop *stack
 }
 
 func newQueue() *queue {
 	return &queue{
-		newestOnTop: stack.New(),
-		oldestOnTop: stack.New(),
+		newestOnTop: NewStack(),
+		oldestOnTop: NewStack(),
 	}
 }
 
@@ -28,7 +25,7 @@ func (q *queue) Peek() int { // get "oldest" item
 		q.oldestOnTop.Push(q.newestOnTop.Pop())
 	}
 
-	v := q.oldestOnTop.Peek().(int)
+	v := q.oldestOnTop.Peek()
 
 	// move everything back to newestOnTop
 	for q.oldestOnTop.Len() > 0 {
@@ -45,7 +42,7 @@ func (q *queue) Dequeue() int { // get "oldest" and remove it
 		q.oldestOnTop.Push(q.newestOnTop.Pop())
 	}
 
-	v := q.oldestOnTop.Pop().(int)
+	v := q.oldestOnTop.Pop()
 
 	// move everything back to newestOnTop
 	for q.oldestOnTop.Len() > 0 {

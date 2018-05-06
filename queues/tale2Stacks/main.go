@@ -1,20 +1,44 @@
 package main
 
+import (
+	"bytes"
+	"fmt"
+	"os"
+)
+
 func main() {
 
-	inputs := parseFromStdin() // []queryDoer
+	inputs := parseInput(os.Stdin) // []queryDoer
 
 	q := newQueue()
+
+	output := doQuerySequence(q, inputs)
+
+	fmt.Printf(output)
+
+}
+
+type queryDoer interface {
+	prettyPrint()
+	doQuery(*queue) string
+}
+
+// This setup allows for testing while continuing to print to STDOUT in the way
+// expected by hackerrank.
+func doQuerySequence(q *queue, inputs []queryDoer) string {
+
+	// much more efficient than naive string concatenation
+	var buffer bytes.Buffer
 
 	for _, x := range inputs {
 
 		// x.prettyPrint() // uncomment to debug
 
-		x.doQuery(q)
-	}
-}
+		if out := x.doQuery(q); out != "" {
+			buffer.WriteString(out)
+		}
 
-type queryDoer interface {
-	prettyPrint()
-	doQuery(*queue)
+	}
+
+	return buffer.String()
 }
