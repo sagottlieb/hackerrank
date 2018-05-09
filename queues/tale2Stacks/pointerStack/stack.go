@@ -1,9 +1,11 @@
-package stackNaive
+package pointerStack
+
+import "github.com/sagottlieb/hackerrank/queues/tale2Stacks/core"
 
 // implements stack
 type stack []int
 
-func New() *stack {
+func New() core.Stack {
 	s := make(stack, 0)
 	return &s
 }

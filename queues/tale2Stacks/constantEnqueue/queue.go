@@ -1,13 +1,18 @@
-package main
+package constantEnqueue
 
 import (
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/stackNaive"
+	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/core"
 )
 
-func newQueue() *queue {
+type queue struct {
+	newestOnTop core.Stack // source of truth
+	oldestOnTop core.Stack // empty except during peek/dequeue ops
+}
+
+func New(newStack core.StackIniter) core.Queue {
 	return &queue{
-		newestOnTop: stackNaive.New(),
-		oldestOnTop: stackNaive.New(),
+		newestOnTop: newStack(),
+		oldestOnTop: newStack(),
 	}
 }
 

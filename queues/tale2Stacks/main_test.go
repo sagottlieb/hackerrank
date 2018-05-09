@@ -8,25 +8,38 @@ import (
 	"strings"
 	"testing"
 
+	"fmt"
+
+	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/constantDequeue"
+	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/constantEnqueue"
+	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/core"
+	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/lazyQueue"
+	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/linkedListStack"
+	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/naiveStack"
+	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/otsStack"
+	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/pointerStack"
 	"github.com/stretchr/testify/assert"
 )
 
 type testCase struct {
-	file string
+	file        string
+	stackMaker  core.StackIniter
+	queueMaker  core.QueueIniter
+	description string
 }
 
 func TestQueue(t *testing.T) {
 	testCase := getTestCases()
 
 	for _, tc := range testCase {
-		t.Run(tc.file, func(t *testing.T) {
+		t.Run(tc.description, func(t *testing.T) {
 
 			queries, err := getTestInputQueries(tc.file)
 			if err != nil {
 				t.Fatalf("Could not open test data file for input file %s: %v", tc.file, err)
 			}
 
-			queue := newQueue()
+			queue := tc.queueMaker(tc.stackMaker)
 
 			output := doQuerySequence(queue, queries)
 
@@ -45,7 +58,7 @@ func BenchmarkQueue(b *testing.B) {
 
 	for _, tc := range testCase {
 
-		b.Run(tc.file, func(b *testing.B) {
+		b.Run(tc.description, func(b *testing.B) {
 
 			queries, err := getTestInputQueries(tc.file)
 			if err != nil {
@@ -53,7 +66,7 @@ func BenchmarkQueue(b *testing.B) {
 			}
 
 			for i := 0; i < b.N; i++ {
-				queue := newQueue()
+				queue := tc.queueMaker(tc.stackMaker)
 
 				_ = doQuerySequence(queue, queries)
 			}
@@ -62,7 +75,7 @@ func BenchmarkQueue(b *testing.B) {
 	}
 }
 
-func getTestInputQueries(filename string) ([]queryDoer, error) {
+func getTestInputQueries(filename string) ([]core.QueryDoer, error) {
 	f, err := os.Open(filename)
 	if err != nil {
 		return nil, err
@@ -96,10 +109,72 @@ func getTestCases() []testCase {
 		log.Fatalf("walk error [%v]", err)
 	}
 
-	testCases := make([]testCase, len(inputFiles))
+	testCases := []testCase{}
 
-	for i, in := range inputFiles {
-		testCases[i] = testCase{file: in}
+	for _, in := range inputFiles {
+		newCases := []testCase{
+			{file: in,
+				stackMaker:  naiveStack.New,
+				queueMaker:  constantEnqueue.New,
+				description: fmt.Sprintf("naiveStack_constantEnqueue_%s", in),
+			},
+			{file: in,
+				stackMaker:  naiveStack.New,
+				queueMaker:  constantDequeue.New,
+				description: fmt.Sprintf("naiveStack_constantDequeue_%s", in),
+			},
+			{file: in,
+				stackMaker:  naiveStack.New,
+				queueMaker:  lazyQueue.New,
+				description: fmt.Sprintf("naiveStack_lazyQueue_%s", in),
+			},
+			{file: in,
+				stackMaker:  pointerStack.New,
+				queueMaker:  constantEnqueue.New,
+				description: fmt.Sprintf("pointerStack_constantEnqueue_%s", in),
+			},
+			{file: in,
+				stackMaker:  pointerStack.New,
+				queueMaker:  constantDequeue.New,
+				description: fmt.Sprintf("pointerStack_constantDequeue_%s", in),
+			},
+			{file: in,
+				stackMaker:  pointerStack.New,
+				queueMaker:  lazyQueue.New,
+				description: fmt.Sprintf("pointerStack_lazyQueue_%s", in),
+			},
+			{file: in,
+				stackMaker:  linkedListStack.New,
+				queueMaker:  constantEnqueue.New,
+				description: fmt.Sprintf("linkedListStack_constantEnqueue_%s", in),
+			},
+			{file: in,
+				stackMaker:  linkedListStack.New,
+				queueMaker:  constantDequeue.New,
+				description: fmt.Sprintf("linkedListStack_constantDequeue_%s", in),
+			},
+			{file: in,
+				stackMaker:  linkedListStack.New,
+				queueMaker:  lazyQueue.New,
+				description: fmt.Sprintf("linkedListStack_lazyQueue_%s", in),
+			},
+			{file: in,
+				stackMaker:  otsStack.New,
+				queueMaker:  constantEnqueue.New,
+				description: fmt.Sprintf("OTSStack_constantEnqueue_%s", in),
+			},
+			{file: in,
+				stackMaker:  otsStack.New,
+				queueMaker:  constantDequeue.New,
+				description: fmt.Sprintf("OTSStack_constantDequeue_%s", in),
+			},
+			{file: in,
+				stackMaker:  otsStack.New,
+				queueMaker:  lazyQueue.New,
+				description: fmt.Sprintf("OTSStack_lazyQueue_%s", in),
+			},
+		}
+		testCases = append(testCases, newCases...)
 	}
 
 	return testCases
@@ -117,4 +192,5 @@ func getExpectations(inFile string) (string, error) {
 	}
 
 	return string(out), nil
+
 }

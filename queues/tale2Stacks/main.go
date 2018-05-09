@@ -4,13 +4,17 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+
+	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/core"
+	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/lazyQueue"
+	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/linkedListStack"
 )
 
 func main() {
 
 	inputs := parseInput(os.Stdin) // []queryDoer
 
-	q := newQueue()
+	q := lazyQueue.New(linkedListStack.New)
 
 	output := doQuerySequence(q, inputs)
 
@@ -18,35 +22,18 @@ func main() {
 
 }
 
-type stack interface {
-	Len() int
-	Push(int)
-	Pop() int
-	Peek() int
-}
-
-type queue struct {
-	newestOnTop stack
-	oldestOnTop stack
-}
-
-type queryDoer interface {
-	prettyPrint()
-	doQuery(*queue) string
-}
-
 // This setup allows for testing while continuing to print to STDOUT in the way
 // expected by hackerrank.
-func doQuerySequence(q *queue, inputs []queryDoer) string {
+func doQuerySequence(q core.Queue, inputs []core.QueryDoer) string {
 
 	// much more efficient than naive string concatenation
 	var buffer bytes.Buffer
 
 	for _, x := range inputs {
 
-		// x.prettyPrint() // uncomment to debug
+		// x.PrettyPrint() // uncomment to debug
 
-		if out := x.doQuery(q); out != "" {
+		if out := x.DoQuery(q); out != "" {
 			buffer.WriteString(out)
 		}
 
