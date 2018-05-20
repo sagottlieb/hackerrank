@@ -1,6 +1,6 @@
 package naiveStack
 
-import "github.com/sagottlieb/hackerrank/queues/tale2Stacks/core"
+import "github.com/sagottlieb/hackerrank/tale2Stacks/core"
 
 // implements stack
 type stack struct {

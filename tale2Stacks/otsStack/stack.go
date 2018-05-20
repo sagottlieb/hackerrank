@@ -2,7 +2,7 @@ package otsStack
 
 import (
 	"github.com/golang-collections/collections/stack"
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/core"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/core"
 )
 
 // For benchmarking fun; wrapper was a quick way to deal with different return types of stack implementations

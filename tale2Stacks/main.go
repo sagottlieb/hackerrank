@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/core"
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/lazyQueue"
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/linkedListStack"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/core"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/lazyQueue"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/linkedListStack"
 )
 
 func main() {

@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/core"
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/query"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/core"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/query"
 )
 
 // not pretty but does the trick

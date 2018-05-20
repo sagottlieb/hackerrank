@@ -1,8 +1,6 @@
 package constantDequeue
 
-import (
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/core"
-)
+import "github.com/sagottlieb/hackerrank/tale2Stacks/core"
 
 type queue struct {
 	newestOnTop core.Stack // empty except during enqueue ops

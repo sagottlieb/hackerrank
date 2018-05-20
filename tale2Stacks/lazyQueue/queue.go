@@ -1,8 +1,6 @@
 package lazyQueue
 
-import (
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/core"
-)
+import "github.com/sagottlieb/hackerrank/tale2Stacks/core"
 
 type queue struct {
 	// except during operations, only one of these will contain entries

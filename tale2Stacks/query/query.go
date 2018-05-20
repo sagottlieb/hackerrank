@@ -3,7 +3,7 @@ package query
 import (
 	"fmt"
 
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/core"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/core"
 )
 
 // type 1
