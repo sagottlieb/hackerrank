@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/sagottlieb/hackerrank/stacks/balancedBraces/mystack"
+
+	"github.com/sagottlieb/hackerrank/balancedBraces/mystack"
 )
 
 func main() {
@@ -19,16 +20,16 @@ func main() {
 
 	inputs := parseFromStdin()
 
-	for _, s := range inputs{
-		if checker.IsBalanced(s){
+	for _, s := range inputs {
+		if checker.IsBalanced(s) {
 			fmt.Println("YES")
-		} else{
-		fmt.Println("NO")
+		} else {
+			fmt.Println("NO")
 		}
 	}
 
 }
 
-type balanceChecker interface{
+type balanceChecker interface {
 	isBalanced(string) bool
 }

@@ -10,14 +10,14 @@ import (
 
 	"fmt"
 
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/constantDequeue"
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/constantEnqueue"
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/core"
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/lazyQueue"
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/linkedListStack"
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/naiveStack"
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/otsStack"
-	"github.com/sagottlieb/hackerrank/queues/tale2Stacks/pointerStack"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/constantDequeue"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/constantEnqueue"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/core"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/lazyQueue"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/linkedListStack"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/naiveStack"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/otsStack"
+	"github.com/sagottlieb/hackerrank/tale2Stacks/pointerStack"
 	"github.com/stretchr/testify/assert"
 )
 
